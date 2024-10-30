@@ -4,15 +4,27 @@ lobbies:
     x: 1
     y: 1
     z: 1
+    min-players: 1
+    max-players: 1
+    countdown-timer: 40
   two:
     x: 1
     y: 1
     z: 1
+    min-players: 1
+    max-players: 1
+    countdown-timer: 40
   three:
     x: 1
     y: 1
     z: 1
+    min-players: 1
+    max-players: 1
+    countdown-timer: 40
   four:
     x: 1
     y: 1
     z: 1
+    min-players: 1
+    max-players: 1
+    countdown-timer: 40

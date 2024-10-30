@@ -1,0 +1,18 @@
+lobbies:
+  can_move: true
+  one:
+    x: 1
+    y: 1
+    z: 1
+  two:
+    x: 1
+    y: 1
+    z: 1
+  three:
+    x: 1
+    y: 1
+    z: 1
+  four:
+    x: 1
+    y: 1
+    z: 1

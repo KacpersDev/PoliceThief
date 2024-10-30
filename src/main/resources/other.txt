@@ -1,0 +1,25 @@
+gamemode-type: "one" # one, two, three, four
+
+one:
+  min-players: 6
+  max-players: 9
+  thieves_amount: 8
+  police_amount: 1
+
+two:
+  min-players: 6
+  max-players: 9
+  thieves_amount: 8
+  police_amount: 1
+
+three:
+  min-players: 6
+  max-players: 9
+  thieves_amount: 8
+  police_amount: 1
+
+four:
+  min-players: 6
+  max-players: 9
+  thieves_amount: 8
+  police_amount: 1

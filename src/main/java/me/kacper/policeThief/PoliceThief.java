@@ -1,54 +1,53 @@
 package me.kacper.policeThief;
 
 import lombok.Getter;
-import me.kacper.policeThief.lobby.Lobby;
-import me.kacper.policeThief.lobby.manager.LobbyManager;
+import me.kacper.policeThief.arena.command.ArenaCommand;
+import me.kacper.policeThief.arena.manager.ArenaManager;
 import me.kacper.policeThief.utils.config.Config;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Objects;
 
 @Getter
 public final class PoliceThief extends JavaPlugin {
 
     @Getter private static PoliceThief instance;
 
-    private Config configuration;
+    private Config configuration, arenas;
 
-    private LobbyManager lobbyManager;
+    private ArenaManager arenaManager;
 
     @Override
     public void onEnable() {
         instance = this;
 
         this.loadConfiguration();
-        this.loadLobbies();
+        this.loadCommands();
+
+        this.arenaManager = new ArenaManager();
+        this.arenaManager.loadArenas();
     }
 
     @Override
     public void onDisable() {
+        this.arenaManager.saveArenas();
+
         instance = null;
     }
 
     private void loadConfiguration() {
         this.configuration = new Config(this, new File(getDataFolder(), "configuration.yml"),
                 new YamlConfiguration(), "configuration.yml");
+        this.arenas = new Config(this, new File(getDataFolder(), "arenas.yml"),
+                new YamlConfiguration(), "arenas.yml");
+
         this.configuration.create();
+        this.arenas.create();
     }
 
-    private void loadLobbies() {
-        this.lobbyManager = new LobbyManager();
-
-        boolean canMove = getConfiguration().getConfiguration().getBoolean("lobbies.can_move");
-
-        for (final ModeType modeType : ModeType.values()) {
-            this.lobbyManager.getLobbies().put(modeType, new Lobby(modeType,
-                    new Location(null,
-                            getConfiguration().getConfiguration().getInt("lobbies." + modeType.getConfigType() + ".x"),
-                            getConfiguration().getConfiguration().getInt("lobbies." + modeType.getConfigType() + ".y"),
-                            getConfiguration().getConfiguration().getInt("lobbies." + modeType.getConfigType() + ".z")), canMove));
-        }
+    private void loadCommands() {
+        Objects.requireNonNull(getCommand("arena")).setExecutor(new ArenaCommand());
     }
 }

@@ -1,0 +1,9 @@
+arena:
+  wrong-usage:
+    - ""
+    - "<red>/arena create <name> <mode_type>"
+    - ""
+  created: "<green>Successfully created {arena} arena"
+  exists: "<red>{arena} arena already exists."
+  not-exists: "<red>{arena} arena does not exists."
+  delete-fail: "<red>Failed to delete an arena. Arena is either in game state or there are players on arena."

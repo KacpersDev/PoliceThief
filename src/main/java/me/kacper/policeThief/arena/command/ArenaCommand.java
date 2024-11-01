@@ -43,7 +43,7 @@ public class ArenaCommand implements CommandExecutor, TabCompleter {
                             return false;
                         }
 
-                        PoliceThief.getInstance().getArenaManager().createArena(new Arena(name, modeType, null, null));
+                        PoliceThief.getInstance().getArenaManager().createArena(new Arena(name, modeType, null, null, null));
                         sender.sendMessage(MiniMessage.miniMessage().deserialize(Objects.requireNonNull(Objects.requireNonNull(PoliceThief.getInstance().getLanguage()
                                 .getConfiguration().getString("arena.created")).replace("{arena}", name))));
                     }

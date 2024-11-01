@@ -17,17 +17,18 @@ public class Arena {
     private String name;
     private ModeType modeType;
     private ArenaMode arenaMode;
-    private Location lobbySpawnLocation, gameSpawnLocation;
+    private Location lobbySpawnLocation, gameSpawnLocation, policeGameLobbyLocation;
 
     private int minPlayers, maxPlayers, waitingTimer, currentWaitingTimer, gameTimer;
 
     private final Set<UUID> currentPlayers;
 
-    public Arena(String name, ModeType modeType, Location lobbySpawnLocation, Location gameSpawnLocation) {
+    public Arena(String name, ModeType modeType, Location lobbySpawnLocation, Location gameSpawnLocation, Location policeGameLobbyLocation) {
         this.name = name;
         this.modeType = modeType;
         this.lobbySpawnLocation = lobbySpawnLocation;
         this.gameSpawnLocation = gameSpawnLocation;
+        this.policeGameLobbyLocation = policeGameLobbyLocation;
 
         this.currentWaitingTimer = 0;
         this.gameTimer = 0;

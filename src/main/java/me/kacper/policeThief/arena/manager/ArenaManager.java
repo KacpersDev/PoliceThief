@@ -21,6 +21,11 @@ public class ArenaManager {
     public void saveArenas() {
         arenas.forEach(arena -> {
             PoliceThief.getInstance().getArenas().getConfiguration().set("arena." + arena.getName() + ".name", arena.getName());
+            PoliceThief.getInstance().getArenas().getConfiguration().set("arena." + arena.getName() + ".modeType", arena.getModeType().getConfigType().toUpperCase());
+            PoliceThief.getInstance().getArenas().getConfiguration().set("arena." + arena.getName() + ".lobbySpawnLocation", arena.getLobbySpawnLocation());
+            PoliceThief.getInstance().getArenas().getConfiguration().set("arena." + arena.getName() + ".gameSpawnLocation", arena.getGameSpawnLocation());
+            PoliceThief.getInstance().getArenas().getConfiguration().set("arena." + arena.getName() + ".policeGameLobbyLocation", arena.getPoliceGameLobbyLocation());
+            PoliceThief.getInstance().getArenas().save();
         });
     }
 

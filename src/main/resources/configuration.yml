@@ -2,4 +2,6 @@ arena-type:
   one:
     min-players: 1
     max-players: 1
+    police-players: 4
     waiting-timer: 40
+    police-timer: 20

@@ -19,9 +19,10 @@ public class Arena {
     private ArenaMode arenaMode;
     private Location lobbySpawnLocation, gameSpawnLocation, policeGameLobbyLocation;
 
-    private int minPlayers, maxPlayers, waitingTimer, currentWaitingTimer, gameTimer;
+    private int minPlayers, maxPlayers, waitingTimer, policeTimer, currentWaitingTimer, gameTimer;
 
     private final Set<UUID> currentPlayers;
+    private final Set<UUID> policePlayers;
 
     public Arena(String name, ModeType modeType, Location lobbySpawnLocation, Location gameSpawnLocation, Location policeGameLobbyLocation) {
         this.name = name;
@@ -35,11 +36,14 @@ public class Arena {
 
         this.minPlayers = PoliceThief.getInstance().getConfiguration().getConfiguration().getInt("arena-type." + modeType.getConfigType() + ".min-players");
         this.maxPlayers = PoliceThief.getInstance().getConfiguration().getConfiguration().getInt("arena-type." + modeType.getConfigType() + ".max-players");
+
         this.waitingTimer = PoliceThief.getInstance().getConfiguration().getConfiguration().getInt("arena-type." + modeType.getConfigType() + ".waiting-timer");
+        this.policeTimer = PoliceThief.getInstance().getConfiguration().getConfiguration().getInt("arena-type." + modeType.getConfigType() + ".police-timer");
 
         this.arenaMode = ArenaMode.WAITING;
 
         this.currentPlayers = new HashSet<>();
+        this.policePlayers = new HashSet<>();
     }
 
     public void increaseGameTimer() {

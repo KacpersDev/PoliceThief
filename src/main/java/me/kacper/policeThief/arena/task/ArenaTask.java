@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class ArenaTask implements Runnable{
+public class ArenaTask implements Runnable {
 
     @Override
     public void run() {
@@ -28,9 +28,23 @@ public class ArenaTask implements Runnable{
                     Player uuidPlayer = Bukkit.getPlayer(uuid);
 
                     // Player is getting removed in onQuitEvent, but check is made just to make sure.
-                    if (uuidPlayer != null && uuidPlayer.isOnline()) {
+                    if (uuidPlayer != null && uuidPlayer.isOnline() && !arena.getPolicePlayers().contains(uuid)) {
                         uuidPlayer.teleport(arena.getGameSpawnLocation());
                     }
+
+                    if (uuidPlayer != null && arena.getPolicePlayers().contains(uuid)) {
+                        uuidPlayer.teleport(arena.getPoliceGameLobbyLocation());
+                    }
+                }
+
+                arena.setArenaMode(ArenaMode.STARTING);
+            }
+
+            if (arena.getArenaMode() == ArenaMode.STARTING) {
+                arena.setPoliceTimer(arena.getPoliceTimer() - 1);
+
+                if (arena.getPoliceTimer() <= 0) {
+                    arena.setArenaMode(ArenaMode.IN_GAME);
                 }
             }
         }

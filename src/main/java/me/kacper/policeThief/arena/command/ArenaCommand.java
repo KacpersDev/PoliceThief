@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,7 +70,35 @@ public class ArenaCommand implements CommandExecutor, TabCompleter {
                     }
 
                     PoliceThief.getInstance().getArenaManager().getArenas().remove(arena);
+                    sender.sendMessage(MiniMessage.miniMessage().deserialize(Objects.requireNonNull(Objects.requireNonNull(PoliceThief.getInstance().getLanguage()
+                            .getConfiguration().getString("arena.deleted")).replace("{arena}", name))));
                 }
+            } else if (args[0].equalsIgnoreCase("setlobbyspawn")) {
+                if (!(sender instanceof Player player)) {
+                    sender.sendMessage(MiniMessage.miniMessage().deserialize("<red>You must be a player to execute this command."));
+                    return false;
+                }
+
+                if (args.length == 1) {
+                    usage(sender);
+                } else {
+                    String name = args[1];
+
+                    if (PoliceThief.getInstance().getArenaManager().getArena(name) != null) {
+                        sender.sendMessage(MiniMessage.miniMessage().deserialize(Objects.requireNonNull(PoliceThief.getInstance()
+                                .getLanguage().getConfiguration().getString("arena.exists")).replace("{name}", name)));
+                        return false;
+                    }
+
+                    PoliceThief.getInstance().getArenaManager().getArena(name).setLobbySpawnLocation(player.getLocation());
+                    player.sendMessage(MiniMessage.miniMessage().deserialize(Objects.requireNonNull(PoliceThief.getInstance().getLanguage()
+                            .getConfiguration().getString("arena.lobbyspawn-set"))));
+
+                }
+            } else if (args[0].equalsIgnoreCase("setgamespawn")) {
+
+            } else if (args[0].equalsIgnoreCase("setpolicegamespawn")) {
+
             }
         }
 

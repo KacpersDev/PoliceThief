@@ -8,6 +8,7 @@ import me.kacper.policeThief.arena.ArenaMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 public class ArenaManager {
@@ -15,7 +16,16 @@ public class ArenaManager {
     private final List<Arena> arenas = new ArrayList<>();
 
     public void loadArenas() {
-
+        if (PoliceThief.getInstance().getArenas().getConfiguration().getConfigurationSection("arena") == null) return;
+        for (final String arena : Objects.requireNonNull(PoliceThief.getInstance().getArenas().getConfiguration().getConfigurationSection("arena")).getKeys(false)) {
+            PoliceThief.getInstance().getArenaManager().getArenas().add(
+                    new Arena(PoliceThief.getInstance().getArenas().getConfiguration().getString("arena." + arena + ".name"),
+                            ModeType.valueOf(Objects.requireNonNull(PoliceThief.getInstance().getArenas().getConfiguration().getString("arena." + arena + ".modType")).toUpperCase()),
+                            PoliceThief.getInstance().getArenas().getConfiguration().getLocation("arena."  +arena + ".lobbySpawnLocation"),
+                            PoliceThief.getInstance().getArenas().getConfiguration().getLocation("arena."  +arena + ".gameSpawnLocation"),
+                            PoliceThief.getInstance().getArenas().getConfiguration().getLocation("arena."  +arena + ".policeGameLobbyLocation"))
+            );
+        }
     }
 
     public void saveArenas() {
